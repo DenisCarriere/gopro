@@ -32,7 +32,7 @@ You must first be connected to the GoProApp Wifi connection.
 
 Launch your favorite `ipython` or standard `python`
 
-```
+```python
 >>> import gopro
 >>> camera = gopro.camera()
 >>> camera.photo()
