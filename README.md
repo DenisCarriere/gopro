@@ -107,7 +107,7 @@ A big thanks to all the people who have helped contribute!
 
 To be a contributor, please message me with requests on [Twitter](https://twitter.com/DenisCarriere)/[Github issues](https://github.com/DenisCarriere/gopro/issues)
 
-- @[DenisCarriere)[https://github.com/DenisCarriere]
+- @[DenisCarriere](https://github.com/DenisCarriere)
 - @[KonradIT](https://github.com/KonradIT)
 
 ## License
