@@ -8,20 +8,37 @@ import time
 class Camera(object):
     def __init__(self, ip='10.5.5.9'):
         self._api_url = 'http://' + ip
+        
+        # Connection Test
+        self.connection = self._test()
 
-    def _command_api(self, method, params=''):
+    def __repr__(self):
+        return '<GoPro Camera [{0}]>'.format(self.connection)
+
+    def _command_api(self, method='', params=''):
         if params:
             params = {'p': params}
         url = self._api_url + '/gp/gpControl' + method
         return self._api_call(url, params)
 
     def _api_call(self, url, params):
-        r = requests.get(url, params=params)
-        return r.content
+        try:
+            r = requests.get(url, timeout=5.0, params=params)
+            self.connection = 'OK'
+            return r.content.json()
+        except:
+            self.connection = 'Not Connected'
+            return {}
 
+    def _test(self):
+        ok = self.ok
+        if ok:
+            return 'OK'
+        else:
+            return 'Not Connected'
+            
     def _debug(self):
-        r = requests.get('http://10.5.5.9/gp/gpControl')
-        content = r.json()
+        content = self._command_api()
         sections = [
             'status',
             'info',
@@ -35,15 +52,26 @@ class Camera(object):
         return content
 
     @property
+    def ok(self):
+        if self.status:
+            return True
+        else:
+            return False
+
+    @property
+    def status(self):
+        return self._command_api().get('status')
+
+    @property
     def commands(self):
-        return _debug()['commands']
+        return self._command_api().get('commands')
 
     @property
     def info(self):
-        return _debug()['info']
+        return self._command_api().get('info')
 
-    def silence(self):
-        return self._command_api()
+    #def silence(self):
+    #    return self._command_api()
 
     def capture(self):
         return self._command_api('/command/shutter', '1')
