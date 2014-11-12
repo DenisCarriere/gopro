@@ -36,6 +36,7 @@ Launch your favorite `ipython` or standard `python`
 >>> import gopro
 >>> camera = gopro.camera()
 >>> camera.photo()
+...
 ```
 
 ## Camera modes
@@ -43,10 +44,11 @@ Launch your favorite `ipython` or standard `python`
 Makes it easy to cycle threw each available modes.
 
 ```python
-camera.mode('burst')
-camera.mode('photo')
-camera.mode('timelapse')
-camera.mode('video')
+>>> camera.mode('burst')
+>>> camera.mode('photo')
+>>> camera.mode('timelapse')
+>>> camera.mode('video')
+...
 ```
 
 ## Locate (Beep! Beep!)
@@ -56,8 +58,9 @@ Can't find your device?? Call the locate function and it will Beep endlessly unt
 To turn off the beeps, simply press the `mode` button on the device or use the `off` as a parameter.
 
 ```python
-camera.locate('on')
-camera.locate('off')
+>>> camera.locate('on')
+>>> camera.locate('off')
+...
 ```
 
 ## Sleep
@@ -69,7 +72,8 @@ At the moment there is no working commands to turn the device back on.
 To reactivate the device, press the `mode` button.
 
 ```python
-camera.sleep()
+>>> camera.sleep()
+...
 ```
 
 ## Delete Photos
@@ -81,9 +85,10 @@ Might be useful to dump all those photos from your GoPro.
 The `erase` function does the same as the delete all.
 
 ```python
-camera.erase()
-camera.delete_all()
-camera.delete_last()
+>>> camera.erase()
+>>> camera.delete_all()
+>>> camera.delete_last()
+...
 ```
 
 ## Debug
@@ -91,8 +96,9 @@ camera.delete_last()
 Want to explore & troubleshoot the device a bit, you can retrieve the following properties from your device.
 
 ```
-camera.info
-camera.commands
+>>> camera.info
+>>> camera.commands
+...
 ```
 
 ## Contributors
@@ -101,6 +107,7 @@ A big thanks to all the people who have helped contribute!
 
 To be a contributor, please message me with requests on [Twitter](https://twitter.com/DenisCarriere)/[Github issues](https://github.com/DenisCarriere/gopro/issues)
 
+- @[DenisCarriere)[https://github.com/DenisCarriere]
 - @[KonradIT](https://github.com/KonradIT)
 
 ## License
