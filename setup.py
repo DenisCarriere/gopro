@@ -24,7 +24,7 @@ with open('LICENSE') as f:
 setup(
     name='gopro',
     version=version,
-    description="GoPro Camera Python module made easy.",
+    description="GoPro Camera - Python module made easy.",
     long_description=readme,
     author='Denis Carriere',
     author_email='carriere.denis@gmail.com',

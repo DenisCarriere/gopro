@@ -2,11 +2,11 @@
 
 At the moment this module only works with the newest GoPro Hero 4.
 
-The earlier versions of GoPro are using different API's.
+The earlier versions of GoPro are not backwards/forwards compatible.
 
 ## Install
 
-Easy install with Github or PyPi (Soon)
+Easy install with Github or PyPi
 
 Installing the **latest version from GitHub**.
 
