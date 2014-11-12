@@ -1,6 +1,8 @@
 # GoPro - Python API
 
-At the moment all testings are conducted with the newest version of the GoPro Hero 4.
+At the moment this module only works with the newest GoPro Hero 4.
+
+The earlier versions of GoPro are using different API's.
 
 ## Install
 
@@ -23,6 +25,10 @@ $ sudo pip install gopro
 ## Quickstart
 
 Once the installation is complete you are ready to start! :)
+
+The default `IP` address for the GoPro is using `10.5.5.9`.
+
+You must first be connected to the GoProApp Wifi connection.
 
 Launch your favorite `ipython` or standard `python`
 
