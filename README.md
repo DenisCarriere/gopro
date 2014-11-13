@@ -36,14 +36,28 @@ Launch your favorite `ipython` or standard `python`
 
 ```python
 >>> import gopro
->>> c = gopro.camera()
->>> c.status
+>>> camera = gopro.camera()
+>>> camera.status
 {'connection': 'OK',
- 'datetime': '2014-11-12T22:39:04',
- 'screen': 'settings',
- 'time_offset': 0.590459}
->>> c.photo()
+ 'datetime': '2014-11-12T23:53:59',
+ 'ip': '10.5.5.9',
+ 'ok': True,
+ 'screen': 'video',
+ 'storage': '31.3 GB',
+ 'time_offset': 'now'}
 ...
+```
+
+## Take a Photo or Video
+
+With very simple commands you can tell your GoPro to start recording or take a photo.
+
+The screen will automaticly change to the approriate page.
+
+```python
+>>> camera.photo()
+>>> camera.video()
+>>> camera.timelapse()
 ```
 
 ## Camera modes
@@ -147,6 +161,17 @@ The `time_offset` is measured in (+/-) seconds.
 ...
 ```
 
+## File Storage
+
+Here is how you can retrieve the total file storage in (KB) or pretty human readeable format.
+
+```python
+>>> camera.status_storage
+31330144
+>>> camera.status['storage']
+'31.3 GB'
+```
+
 ## Debug
 
 Want to explore & troubleshoot the device a bit, you can retrieve the following properties from your device.
@@ -164,8 +189,9 @@ A big thanks to all the people who have helped contribute!
 
 To be a contributor, please message me with requests on [Twitter](https://twitter.com/DenisCarriere)/[Github issues](https://github.com/DenisCarriere/gopro/issues)
 
-- @[DenisCarriere](https://github.com/DenisCarriere)
-- @[KonradIT](https://github.com/KonradIT)
+- @[Denis Carriere](https://github.com/DenisCarriere)
+- @[Konrad Iturbe](https://github.com/KonradIT)
+- @[Jason Moiron](https://github.com/jmoiron)
 
 ## License
 
