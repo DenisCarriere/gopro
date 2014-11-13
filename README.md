@@ -2,9 +2,13 @@
 
 **A complete Python GoPro module made easy.**
 
+![GoPro](http://cdn.snowboarding.transworld.net/wp-content/blogs.dir/442/files/2014/09/gopro-hero4-new-camera-black-silver-editions-600x342.png)
+
 At the moment this module only works with the newest GoPro Hero 4.
 
-The earlier versions of GoPro are not backwards/forwards compatible.
+Sadly the earlier versions of GoPro are not backwards/forwards compatible.
+
+
 
 ## Install
 
