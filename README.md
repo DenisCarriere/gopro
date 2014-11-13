@@ -36,8 +36,13 @@ Launch your favorite `ipython` or standard `python`
 
 ```python
 >>> import gopro
->>> camera = gopro.camera()
->>> camera.photo()
+>>> c = gopro.camera()
+>>> c.status
+{'connection': 'OK',
+ 'datetime': '2014-11-12T22:39:04',
+ 'screen': 'settings',
+ 'time_offset': 0.590459}
+>>> c.photo()
 ...
 ```
 
@@ -97,22 +102,48 @@ The `erase` function does the same as the delete all.
 
 You can explore the different types of settings & status by getting the raw JSON response or selecting a specific pre-parsed attribute
 
-**Raw JSON Responses**
+### Processed attributes
+
+**Status - Screen**
+
+This will let you know which page your GP is currently active.
+
+There are only 4 available outcomes.
 
 ```python
->>> camera.settings
 >>> camera.status
-...
-```
-
-**Processed attributes**
-
-```python
->>> camera.status_screen
 'settings'
 'video'
 'photo'
 'timelapse'
+...
+```
+
+### Raw JSON Responses
+
+The original response from the GoPro device.
+
+```python
+>>> camera.settings_raw
+>>> camera.status_raw
+...
+```
+
+## Date & Time
+
+It is a good idea to sync your GoPro with the same clock as your computer.
+
+An easy way to do this is use the `datetime` &  `time_offset` attribute.
+
+Try to aim your GoPro to have less than 1 second offset.
+
+The `time_offset` is measured in (+/-) seconds.
+
+```python
+>>> camera.datetime
+2014-11-12 21:53:09
+>>> camera.datetime_offset
+-0.320142
 ...
 ```
 
@@ -121,7 +152,7 @@ You can explore the different types of settings & status by getting the raw JSON
 Want to explore & troubleshoot the device a bit, you can retrieve the following properties from your device.
 
 ```python
->>> camera.debug()
+>>> camera.debug
 >>> camera.info
 >>> camera.commands
 ...

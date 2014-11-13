@@ -2,16 +2,19 @@
 # coding: utf8
 
 import requests
-import time
+import datetime
 import json
 
 
 class Camera(object):
+    _status = {}
+    _settings = {}
+
     def __init__(self, ip='10.5.5.9'):
         self._api_url = 'http://' + ip
         
         # Connection Test
-        self.connection = self._test()
+        self._test_connection()
 
     def __repr__(self):
         return '<GoPro Camera [{0}]>'.format(self.connection)
@@ -31,13 +34,24 @@ class Camera(object):
             self.connection = 'Not Connected'
             return {}
 
-    def _test(self):
-        ok = self.ok
-        if ok:
-            return 'OK'
+    def _test_connection(self):
+        if self.ok:
+            self.status['connection'] = 'OK'
         else:
-            return 'Not Connected'
-            
+            self.status['connection'] = 'Not Connected'
+
+    @property
+    def settings(self):
+        return self._settings
+
+    @property
+    def status(self):
+        self.datetime
+        self.time_offset
+        self.status_screen
+        return self._status
+
+    @property        
     def debug(self):
         content = self._command_api()
         sections = [
@@ -60,8 +74,12 @@ class Camera(object):
             return False
 
     @property
-    def status(self):
+    def status_raw(self):
         return self._command_api('/status').get('status')
+
+    @property
+    def settings_raw(self):
+        return self._command_api('/status').get('settings')
 
     @property
     def status_screen(self):
@@ -71,11 +89,9 @@ class Camera(object):
             1: 'photo',
             3: 'timelapse', 
         }
-        return status_screen[self.status.get('12')]
-
-    @property
-    def settings(self):
-        return self._command_api('/status').get('settings')
+        status_screen = status_screen[self.status_raw.get('12')] 
+        self._status['screen'] = status_screen
+        return status_screen
 
     @property
     def commands(self):
@@ -85,8 +101,28 @@ class Camera(object):
     def info(self):
         return self._command_api().get('info')
 
-    #def silence(self):
-    #    return self._command_api()
+    @property
+    def datetime(self):
+        d = []
+        for item in self.status_raw.get('40')[1:].split('%'):
+            d.append(int(item, 16))
+        d = datetime.datetime(d[0] + 2000, d[1], d[2], d[3], d[4], d[5]) 
+        self._status['datetime'] = d.isoformat()
+        return d
+
+    @property
+    def time_offset(self):
+        now = datetime.datetime.today()
+        gp_time = self.datetime
+        if now > gp_time:
+            multiplier = 1
+            time_offset = now - gp_time
+        else:
+            multiplier = -1
+            time_offset = gp_time - now
+        time_offset = time_offset.total_seconds() * multiplier
+        self._status['time_offset'] = time_offset
+        return time_offset
 
     def capture(self):
         return self._command_api('/command/shutter', '1')
@@ -108,15 +144,18 @@ class Camera(object):
         self.capture()
 
     def photo(self):
-        self.mode('photo')
+        if not self.status_screen == 'photo':
+            self.mode('photo')
         self.capture()
 
     def video(self):
-        self.mode('video')
+        if not self.status_screen == 'video':
+            self.mode('video')
         self.capture()
 
     def timelapse(self):
-        self.mode('timelapse')
+        if not self.status_screen == 'timelapse':
+            self.mode('timelapse')
         self.capture()
 
     def delete_all(self):
@@ -143,4 +182,4 @@ class Camera(object):
 
 if __name__ == '__main__':
     camera = Camera()
-    print camera.settings
+    print camera.status_screen
