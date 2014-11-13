@@ -125,7 +125,7 @@ This will let you know which page your GP is currently active.
 There are only 4 available outcomes.
 
 ```python
->>> camera.status
+>>> camera.status_screen
 'settings'
 'video'
 'photo'
@@ -158,6 +158,8 @@ The `time_offset` is measured in (+/-) seconds.
 2014-11-12 21:53:09
 >>> camera.datetime_offset
 -0.320142
+>>> camera.status['offset']
+'now'
 ...
 ```
 
