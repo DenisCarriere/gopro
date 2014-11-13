@@ -1,6 +1,6 @@
 # GoPro
 
-### A complete Python GoPro module made easy.
+**A complete Python GoPro module made easy.**
 
 At the moment this module only works with the newest GoPro Hero 4.
 
