@@ -159,7 +159,7 @@ The `time_offset` is measured in (+/-) seconds.
 
 ```python
 >>> camera.datetime
-2014-11-12 21:53:09
+'2014-11-12 21:53:09'
 >>> camera.datetime_offset
 -0.320142
 >>> camera.status['offset']
