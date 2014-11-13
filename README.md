@@ -1,4 +1,6 @@
-# GoPro - Python API
+# GoPro
+
+### A complete Python GoPro module made easy.
 
 At the moment this module only works with the newest GoPro Hero 4.
 
@@ -91,11 +93,35 @@ The `erase` function does the same as the delete all.
 ...
 ```
 
+## Settings
+
+You can explore the different types of settings & status by getting the raw JSON response or selecting a specific pre-parsed attribute
+
+**Raw JSON Responses**
+
+```python
+>>> camera.settings
+>>> camera.status
+...
+```
+
+**Processed attributes**
+
+```python
+>>> camera.status_screen
+'settings'
+'video'
+'photo'
+'timelapse'
+...
+```
+
 ## Debug
 
 Want to explore & troubleshoot the device a bit, you can retrieve the following properties from your device.
 
-```
+```python
+>>> camera.debug()
 >>> camera.info
 >>> camera.commands
 ...

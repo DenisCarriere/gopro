@@ -3,6 +3,7 @@
 
 import requests
 import time
+import json
 
 
 class Camera(object):
@@ -25,7 +26,7 @@ class Camera(object):
         try:
             r = requests.get(url, timeout=5.0, params=params)
             self.connection = 'OK'
-            return r.content.json()
+            return r.json()
         except:
             self.connection = 'Not Connected'
             return {}
@@ -37,7 +38,7 @@ class Camera(object):
         else:
             return 'Not Connected'
             
-    def _debug(self):
+    def debug(self):
         content = self._command_api()
         sections = [
             'status',
@@ -60,7 +61,21 @@ class Camera(object):
 
     @property
     def status(self):
-        return self._command_api().get('status')
+        return self._command_api('/status').get('status')
+
+    @property
+    def status_screen(self):
+        status_screen = {
+            -1: 'settings' ,
+            0: 'video',
+            1: 'photo',
+            3: 'timelapse', 
+        }
+        return status_screen[self.status.get('12')]
+
+    @property
+    def settings(self):
+        return self._command_api('/status').get('settings')
 
     @property
     def commands(self):
@@ -128,8 +143,4 @@ class Camera(object):
 
 if __name__ == '__main__':
     camera = Camera()
-    camera.photo()
-
-    #camera._debug()
-    #camera.sleep()
-    #camera.mode('photo')
+    print camera.settings
