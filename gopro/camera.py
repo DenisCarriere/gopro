@@ -47,8 +47,7 @@ class Camera(object):
         self.status_screen
         self.status_storage
         return self._status
-
-    @property        
+     
     def debug(self):
         content = self._command_api()
         sections = [
@@ -61,7 +60,11 @@ class Camera(object):
             'filters',
             'services',
         ]
-        return content
+        for section in sections:
+            print section
+            print '-------'
+            print '======='
+            print content[section]
 
     @property
     def ok(self):
@@ -220,6 +223,4 @@ class Camera(object):
 
 if __name__ == '__main__':
     camera = Camera()
-    print camera
-    print camera.ok
-    print camera.status
+    camera.debug()
