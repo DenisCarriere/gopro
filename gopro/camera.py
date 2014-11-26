@@ -5,21 +5,33 @@ import requests
 import humanize
 import datetime
 import json
+import re
+from media import Media
 
 
 class Camera(object):
     _status = {}
+    _media = []
     _settings = {}
 
     def __init__(self, ip='10.5.5.9'):
         self._status['ip'] = ip
         self._api_url = 'http://' + ip
+        self._media_url = self._api_url + '/videos/DCIM/100GOPRO/'
         
         # Connection Test
         self.status_connection
 
     def __repr__(self):
         return '<GoPro Camera [{0}]>'.format(self.connection)
+
+    def __iter__(self):
+        for item in self.media:
+            yield item
+
+    def __getitem__(self, item):
+        return self.media[item]
+
 
     def _command_api(self, method='', params=''):
         if params:
@@ -65,6 +77,20 @@ class Camera(object):
             print '-------'
             print '======='
             print content[section]
+
+    @property
+    def photos(self):
+        pass
+
+    @property
+    def media(self):
+        r = requests.get(self._media_url)
+        expression = r'"(\w+.JPG)"'
+        pattern = re.compile(expression)
+        for item in re.findall(pattern, r.content):
+            item_url = self._media_url + item
+            self._media.append(Media(item_url))
+        return self._media
 
     @property
     def ok(self):
@@ -223,4 +249,6 @@ class Camera(object):
 
 if __name__ == '__main__':
     camera = Camera()
-    camera.debug()
+    for photo in camera[0:3]:
+        location = '/home/denis/GoPro/' + photo.basename 
+        photo.save(location)
