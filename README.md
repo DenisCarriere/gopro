@@ -39,8 +39,8 @@ You must first be connected to the GoProApp Wifi connection.
 Launch your favorite `ipython` or standard `python`
 
 ```python
->>> import gopro
->>> camera = gopro.camera()
+>>> from gopro import GoPro
+>>> camera = GoPro()
 >>> camera.status
 {'connection': 'OK',
  'datetime': '2014-11-12T23:53:59',

@@ -9,7 +9,7 @@ import re
 from media import Media
 
 
-class Camera(object):
+class GoPro(object):
     _status = {}
     _media = []
     _settings = {}
