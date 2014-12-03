@@ -134,7 +134,8 @@ class GoPro(object):
         # Filesize in KB
         if self.ok:
             storage = self.status_raw.get('54')
-            self._status['storage'] = humanize.naturalsize(storage * 1000)
+	    if storage is not None:
+	            self._status['storage'] = humanize.naturalsize(storage * 1000)
             return storage
 
     """
