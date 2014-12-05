@@ -87,6 +87,7 @@ class GoPro(object):
         r = requests.get(self._media_url)
         expression = r'"(\w+.JPG)"'
         pattern = re.compile(expression)
+        self._media = []
         for item in re.findall(pattern, r.content):
             item_url = self._media_url + item
             self._media.append(Media(item_url))
