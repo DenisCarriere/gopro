@@ -63,6 +63,13 @@ The screen will automaticly change to the approriate page.
 >>> camera.video()
 >>> camera.timelapse()
 ```
+## Stopping
+
+For video or timelapse you can stop the recording.
+
+```python
+>>> camera.stop()
+```
 
 ## Camera modes
 

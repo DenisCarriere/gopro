@@ -196,6 +196,9 @@ class GoPro(object):
     def capture(self):
         return self._command_api('/command/shutter', '1')
 
+    def stop(self):
+        return self._command_api('/command/shutter', '0')
+
     def mode(self, method):
         xmode = {
             'video': '0',
