@@ -174,7 +174,9 @@ class GoPro(object):
             d = []
             for item in self.status_raw.get('40')[1:].split('%'):
                 d.append(int(item, 16))
-            d = datetime.datetime(d[0] + 2000, d[1], d[2], d[3], d[4], d[5]) 
+            # If GoPro is powered on for more than 24h report hour is incorrect
+            d[3] = d[3] % 24
+            d = datetime.datetime(d[0] + 2000, d[1], d[2], d[3], d[4], d[5])
             self._status['datetime'] = d.isoformat()
             return d
 
