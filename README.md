@@ -1,3 +1,5 @@
+# WARNING: No longer maintained, please use [goprohero](https://github.com/joshvillbrandt/goprohero)
+
 # GoPro
 
 **A complete Python GoPro module made easy.**
