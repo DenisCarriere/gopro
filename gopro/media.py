@@ -3,7 +3,7 @@
 import os
 import requests
 import humanize
-from PIL import Image
+from PIL import Image #http://stackoverflow.com/questions/32772596/pip-install-pil-fails
 from StringIO import StringIO
 
 
@@ -52,4 +52,4 @@ class Media(object):
 
 if __name__ == '__main__':
     media = Media('http://hello.com/DC1111.jpg')
-    print media
+    print(media)

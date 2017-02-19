@@ -7,7 +7,8 @@ import datetime
 import json
 import re
 from media import Media
-
+import socket
+import struct
 
 class GoPro(object):
     _status = {}
@@ -18,8 +19,6 @@ class GoPro(object):
         self._status['ip'] = ip
         self._api_url = 'http://' + ip
         self._media_url = self._api_url + '/videos/DCIM/100GOPRO/'
-        
-        # Connection Test
         self.status_connection
 
     def __repr__(self):
@@ -73,10 +72,10 @@ class GoPro(object):
             'services',
         ]
         for section in sections:
-            print section
-            print '-------'
-            print '======='
-            print content[section]
+            print(section)
+            print('-------')
+            print('=======')
+            print(content[section])
 
     @property
     def photos(self):
@@ -126,7 +125,7 @@ class GoPro(object):
                 1: 'photo',
                 3: 'timelapse', 
             }
-            status_screen = status_screen[self.status_raw.get('12')] 
+            status_screen = status_screen[self.status_raw.get('11')]  # 12 does not exist...
             self._status['screen'] = status_screen
             return status_screen
 
@@ -135,8 +134,8 @@ class GoPro(object):
         # Filesize in KB
         if self.ok:
             storage = self.status_raw.get('54')
-	    if storage is not None:
-	            self._status['storage'] = humanize.naturalsize(storage * 1000)
+        if storage is not None:
+            self._status['storage'] = humanize.naturalsize(storage * 1000)
             return storage
 
     """
@@ -200,7 +199,8 @@ class GoPro(object):
 
     def stop(self):
         return self._command_api('/command/shutter', '0')
-
+    def hilight(self):
+        return self._command_api('/command/storage/tag_moment')
     def mode(self, method):
         xmode = {
             'video': '0',
@@ -211,7 +211,7 @@ class GoPro(object):
         method = method.lower()
         if method in xmode:
             method = xmode[method]
-        return self._command_api('/command/xmode', method)
+        return self._command_api('/command/mode', method)
 
     def burst(self):
         self.mode('burst')
@@ -240,7 +240,25 @@ class GoPro(object):
 
     def sleep(self):
         return self._command_api('/command/system/sleep')
+    def poweron(self, mac_address=None):
+        if mac_address is None:
+            mac_address = "xxxxxxxxxxx"
+        else:
+            mac_address = str(mac_address)
+            if len(mac_address) == 12:
+                pass
+            elif len(mac_address) == 17:
+                sep = mac_address[2]
+                mac_address = mac_address.replace(sep, '')
+            else:
+                raise ValueError('Incorrect MAC address format')
 
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        data = bytes('FFFFFFFFFFFF' + mac_address * 16)
+        message = b''
+        for i in range(0, len(data), 2):
+            message += struct.pack(b'B', int(data[i: i + 2], 16))
+        sock.sendto(message, ("10.5.5.9", 9))
     def locate(self, method='on'):
         status = {
             'on': '1',
