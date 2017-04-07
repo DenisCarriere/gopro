@@ -201,12 +201,13 @@ class GoPro(object):
         return self._command_api('/command/shutter', '0')
     def hilight(self):
         return self._command_api('/command/storage/tag_moment')
+    def erase(self):
+        return self._command_api('/command/storage/delete/all')
     def mode(self, method):
         xmode = {
             'video': '0',
             'photo': '1',
-            'burst': '2',
-            'timelapse': '3',
+            'multishot': '2'
         }
         method = method.lower()
         if method in xmode:
@@ -237,28 +238,28 @@ class GoPro(object):
 
     def delete_last(self):
         return self._command_api('/command/storage/delete/last')
-
+    def delete_file(self, folder, filename):
+    	fullfile = '/' + folder + '/' + filename
+        return self._command_api('/command/storage/delete', fullfile)
     def sleep(self):
         return self._command_api('/command/system/sleep')
     def poweron(self, mac_address=None):
-        if mac_address is None:
-            mac_address = "xxxxxxxxxxx"
-        else:
-            mac_address = str(mac_address)
-            if len(mac_address) == 12:
-                pass
-            elif len(mac_address) == 17:
-                sep = mac_address[2]
-                mac_address = mac_address.replace(sep, '')
-            else:
-                raise ValueError('Incorrect MAC address format')
+		if mac_address is None:
+			mac_address = "AA:BB:CC:DD:EE:FF"
+		else:
+			mac_address = str(mac_address)
+			if len(mac_address) == 12:
+				pass
+			elif len(mac_address) == 17:
+				sep = mac_address[2]
+				mac_address = mac_address.replace(sep, '')
 
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        data = bytes('FFFFFFFFFFFF' + mac_address * 16)
-        message = b''
-        for i in range(0, len(data), 2):
-            message += struct.pack(b'B', int(data[i: i + 2], 16))
-        sock.sendto(message, ("10.5.5.9", 9))
+		sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		data = bytes('FFFFFFFFFFFF' + mac_address * 16, 'utf-8')
+		message = b''
+		for i in range(0, len(data), 2):
+				message += struct.pack(b'B', int(data[i: i + 2], 16))
+		sock.sendto(message, ("10.5.5.9", 9))
     def locate(self, method='on'):
         status = {
             'on': '1',

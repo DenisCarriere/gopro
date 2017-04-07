@@ -8,6 +8,8 @@ Works with HERO4 cameras and HERO5 cameras, HERO+ cameras *may* work too. Older 
 
 ###NOTE: This library is no longer maintained by @DenisCarriere - @KonradIT will be adding features from firmware updates and merging PRs. There is another python library  [goprohero](https://github.com/joshvillbrandt/goprohero) which you can use too.
 
+[![PyPI version](https://badge.fury.io/py/gopro.svg)](https://badge.fury.io/py/gopro)
+
 ## Install
 
 This library only works with **Python 2**, make sure you eitehr run this on a virtual env or on a python2 installation.
@@ -83,10 +85,9 @@ For video or timelapse you can stop the recording.
 Makes it easy to cycle threw each available modes.
 
 ```python
->>> camera.mode('video','single')
->>> camera.mode('photo','single')
->>> camera.mode('multishot','timelapse')
->>> camera.mode('video','looping')
+>>> camera.mode('video')
+>>> camera.mode('photo')
+>>> camera.mode('multishot)
 ...
 ```
 
