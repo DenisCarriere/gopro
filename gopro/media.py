@@ -21,7 +21,7 @@ class Media(object):
             '.mp4': 'Video',
         }
         return media_type_lookup[extension]
-    
+
     def download(self):
         r = requests.get(self.url)
         self.content = r.content
@@ -43,7 +43,7 @@ class Media(object):
     @property
     def size(self):
         self.download()
-        size_bytes = len(r.content)
+        size_bytes = len(self.content)
         return humanize.naturalsize(size_bytes)
 
     def __repr__(self):
