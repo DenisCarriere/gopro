@@ -6,7 +6,7 @@
 
 Works with HERO4 cameras and HERO5 cameras, HERO+ cameras *may* work too. Older cameras are not supported.
 
-###NOTE: This library is no longer maintained by @DenisCarriere - @KonradIT will be adding features from firmware updates and merging PRs. There is another python library  [goprohero](https://github.com/joshvillbrandt/goprohero) which you can use too.
+> NOTE: This library is no longer maintained by @DenisCarriere - @KonradIT will be adding features from firmware updates and merging PRs. There is another python library  [goprohero](https://github.com/joshvillbrandt/goprohero) which you can use too.
 
 [![PyPI version](https://badge.fury.io/py/gopro.svg)](https://badge.fury.io/py/gopro)
 
